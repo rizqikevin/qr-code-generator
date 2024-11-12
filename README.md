@@ -1,80 +1,100 @@
-QR Code Generator for LimeSurvey
-This project is a simple QR Code Generator for LimeSurvey surveys. Using Node.js and Express, it generates a QR code that links directly to a LimeSurvey survey, allowing users to quickly access and share survey links in a scannable format.
+# QR Code Generator for LimeSurvey
 
-Features
-Generate QR codes based on LimeSurvey survey IDs.
-Simple and lightweight API for dynamic QR code generation.
-Returns QR code image data in Base64 format, ready to use in front-end applications.
-Requirements
-Node.js (version 12 or higher)
-Installation
-Clone the repository:
+A simple backend application to generate QR codes that link to a LimeSurvey survey platform. This project allows users to automate QR code creation for survey links, making it easy to distribute surveys via QR codes.
 
-bash
-Copy code
-git clone https://github.com/your-username/qr-code-generator.git
-cd qr-code-generator
-Install dependencies:
+## Features
 
-bash
-Copy code
-npm install
-Configuration
-Set your LimeSurvey base URL in server.js:
+- Generate QR codes for LimeSurvey survey links.
+- Easy integration with LimeSurvey platform.
+- Simple API to generate QR codes programmatically.
 
-javascript
-Copy code
-const LIME_SURVEY_BASE_URL = "https://rizqi-kevin.limesurvey.net";
-This is the base URL for your LimeSurvey instance. The API will generate QR codes that link to surveys on this URL.
+## Prerequisites
 
-Usage
-Start the server:
+Before running this project, make sure you have the following installed:
 
-bash
-Copy code
-node server.js
-The server will run on http://localhost:3000.
+- [Node.js](https://nodejs.org/) (Recommended version: LTS)
+- [npm](https://npmjs.com/) (Node package manager)
 
-Generate a QR code:
+## Installation
 
-Send a POST request to http://localhost:3000/generate-qr with a JSON body that includes the survey ID:
+1. Clone this repository:
 
-json
-Copy code
-{
-  "surveyId": "12345"
-}
-Example with curl:
+   ```bash
+   git clone https://github.com/yourusername/qr-code-generator.git
+   ```
 
-bash
-Copy code
-curl -X POST http://localhost:3000/generate-qr \
--H "Content-Type: application/json" \
--d '{"surveyId": "12345"}'
-Example response:
+2. Navigate to the project directory:
 
-json
-Copy code
-{
-  "qrCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH..."
-}
-The response contains a Base64-encoded QR code image. You can embed this directly in HTML or decode it to display the QR code.
+   ```bash
+   cd qr-code-generator
+   ```
 
-Example
-The following JSON response shows a successful QR code generation:
+3. Install dependencies:
 
-json
-Copy code
-{
-  "qrCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH..."
-}
-Viewing the QR Code
-You can view the QR code by pasting the Base64 data directly in your browser's address bar like this:
+   ```bash
+   npm install
+   ```
 
-bash
-Copy code
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH...
-Replace <paste-base64-data-here> with your qrCode data.
+4. Configure the LimeSurvey platform URL by setting the appropriate environment variables (optional).
 
-License
-This project is open source and available under the MIT License.
+## Usage
+
+1. **Generate a QR Code:**
+
+   After installation, you can use the following command to generate a QR code for your LimeSurvey survey link:
+
+   ```bash
+   node generate-qr.js --url "https://limesurvey.example.com/survey/index.php/123456"
+   ```
+
+   Replace `https://limesurvey.example.com/survey/index.php/123456` with the URL of your survey.
+
+2. **Using the API:**
+
+   The application also provides an API to generate QR codes programmatically. Here's an example using `Express`:
+
+   ```javascript
+   const express = require('express');
+   const QRCode = require('qrcode');
+   const app = express();
+
+   app.get('/generate-qr', (req, res) => {
+       const surveyUrl = req.query.url;
+
+       QRCode.toDataURL(surveyUrl, (err, url) => {
+           if (err) {
+               return res.status(500).send('Error generating QR code');
+           }
+           res.send(`<img src="${url}" />`);
+       });
+   });
+
+   app.listen(3000, () => {
+       console.log('QR Code generator API is running on http://localhost:3000');
+   });
+   ```
+
+3. **Testing:**
+
+   Run the project locally and test the functionality by navigating to the generated URL.
+
+   ```bash
+   node generate-qr.js
+   ```
+
+## Contributing
+
+1. Fork this repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [LimeSurvey](https://www.limesurvey.org/) for providing the survey platform.
+- [QRCode.js](https://github.com/davidshimjs/qrcodejs) for QR code generation.
