@@ -20,7 +20,7 @@ Before running this project, make sure you have the following installed:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/yourusername/qr-code-generator.git
+   git clone https://github.com/rizqikevin/qr-code-generator.git
    ```
 
 2. Navigate to the project directory:
