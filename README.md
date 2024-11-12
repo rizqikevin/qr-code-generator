@@ -44,10 +44,10 @@ Before running this project, make sure you have the following installed:
    After installation, you can use the following command to generate a QR code for your LimeSurvey survey link:
 
    ```bash
-   node generate-qr.js --url "https://limesurvey.example.com/survey/index.php/123456"
+   node generate-qr.js --url "https://rizqi-kevin.limesurvey.net/244349"
    ```
 
-   Replace `https://limesurvey.example.com/survey/index.php/123456` with the URL of your survey.
+   Replace `https://rizqi-kevin.limesurvey.net/244349` with the URL of your survey.
 
 2. **Using the API:**
 
