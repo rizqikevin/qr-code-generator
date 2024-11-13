@@ -1,5 +1,6 @@
 const express = require('express');
 const QRCode = require('qrcode');
+const qrTerminal = require('qrcode-terminal');
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +20,7 @@ app.post('/generate-qr', async (req, res) => {
 
   try {
     const qrCodeData = await QRCode.toDataURL(surveyUrl);
+    qrTerminal.generate(surveyUrl, { small: true }); 
     res.status(200).json({ qrCode: qrCodeData });
   } catch (error) {
     console.error('Error generating QR code:', error);
