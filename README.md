@@ -39,15 +39,25 @@ Before running this project, make sure you have the following installed:
 
 ## Usage
 
-1. **Generate a QR Code:**
+1. **Testing:**
+
+   Run the project locally and test the functionality by navigating to the generated URL.
+
+   ```bash
+   node server.js
+   ```
+
+2. **Generate a QR Code:**
 
    After installation, you can use the following command to generate a QR code for your LimeSurvey survey link:
 
    ```bash
-   node generate-qr.js --url "https://rizqi-kevin.limesurvey.net/244349"
+    curl -X POST http://localhost:3000/generate-qr \
+    -H "Content-Type: application/json" \
+    -d '{"surveyId": "244349"}'
    ```
 
-   Replace `https://rizqi-kevin.limesurvey.net/244349` with the URL of your survey.
+   Replace `surveyId": "244349` with the surveyId of your survey.
 
 2. **Using the API:**
 
@@ -74,13 +84,6 @@ Before running this project, make sure you have the following installed:
    });
    ```
 
-3. **Testing:**
-
-   Run the project locally and test the functionality by navigating to the generated URL.
-
-   ```bash
-   node generate-qr.js
-   ```
 
 ## Contributing
 
